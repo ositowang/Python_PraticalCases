@@ -2,6 +2,9 @@ import re
 import os ,stat
 import struct
 import array
+import mmap
+import time
+from tempfile import TemporaryFile, NamedTemporaryFile
 # Split the document with multiple seperator
 # s = "ab:cd|efg\t|hi,jkkl"
 #
@@ -37,37 +40,51 @@ import array
 
 
 # Read bynary files
+# f = open('demo.wav', 'rb')
+# info = f.read(44)
+#
+# print(f.read(44))
+# print(struct.unpack('h', info[34:36]))
+#
+# f.seek(0, 2)
+# print(f.tell())
+#
+# n = int((f.tell()-44)/2)
+#
+# print(n)
+#
+# buf = array.array("h", [])
+# f.seek(44)
+# buf.fromfile(f, n)
+#
+# print(len(buf))
+#
+# for x in range(0, n):
+#     buf[x] = int(buf[x]/8)
+#     print(buf[x])
+#
+# f2 = open("demo2.wav", "wb")
+#
+# f2.write(info)
+#
+# buf.tofile(f2)
+#
+# f2.close()
 
-f = open('demo.wav', 'rb')
-info = f.read(44)
+# check the status of the file
 
-print(f.read(44))
-print(struct.unpack('h', info[34:36]))
+s = os.stat("TextSplitExample.txt")
+print(s.st_mode)
 
-f.seek(0, 2)
-print(f.tell())
+stat.S_ISDIR(s.st_mode)
 
-n = int((f.tell()-44)/2)
+s.st_mode & stat.S_IRUSR
 
-print(n)
+print(time.localtime(s.st_atime))
 
-buf = array.array("h", [])
-f.seek(44)
-buf.fromfile(f, n)
 
-print(len(buf))
+# Tempery file for saving memory
 
-for x in range(0, n):
-    buf[x] = int(buf[x]/8)
-    print(buf[x])
-
-f2 = open("demo2.wav", "wb")
-
-f2.write(info)
-
-buf.tofile(f2)
-
-f2.close()
 
 
 
