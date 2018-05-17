@@ -57,7 +57,7 @@
 
 
 # Generator for Triangles 
-# def triangles(max):
+# def triangles(i):
 #     result_list = [1]
 #    while True:
 #         yield result_list
@@ -80,17 +80,95 @@
 #     assert list(checkio([10, 9, 10, 10, 9, 8])) == [10, 9, 10, 10, 9], "4th example"
 #     print("It is all good. Let's check it now")
 
-# Monkey Typing
-import re
-def count_words(text: str, words: set) -> int:
-    text = text.lower()
-    result_list = []
-    for word in words:
-        if word in text:
-            result_list.append(word)   
-    return len(result_list)
+# # Monkey Typing
+# import re
+# def count_words(text: str, words: set) -> int:
+#     text = text.lower()
+#     result_list = []
+#     for word in words:
+#         if word in text:
+#             result_list.append(word)   
+#     return len(result_list)
+
+# # Better Solutions
+# def count_words(text, words):
+#     return sum(w in text.lower() for w in words)
 
 
-print(count_words("ab cd",["abc"]))
+# # Xs and Os  Referre
+# from typing import List
+# def checkio(result):
+#     rows = result
+#     cols = map(''.join, zip(*rows))
+#     # enumerate() returns a tuple containing a count (from start which defaults to 0) and the values obtained from iterating over iterable.
+#     diags = map(''.join, zip(*[(r[i], r[2 - i]) for i, r in enumerate(rows)]))
+#     lines = rows + list(cols) + list(diags)
+#     return 'X' if ('XXX' in lines) else 'O' if ('OOO' in lines) else 'D'
+
+# #Pawn Brotherhood
+# def safe_pawns(pawns: set) -> int:
+#     pawn_coord = []
+#     count = 0
+#     for pawn in pawns:
+#         hori_coord = ord(pawn[0])-97
+#         verti_coord = int(pawn[1])
+#         pawn_coord.append((hori_coord,verti_coord))
+#     for hori_coord,verti_coord in pawn_coord:
+#         print(hori_coord,verti_coord)
+#         if ((hori_coord-1,verti_coord-1) in pawn_coord) or ((hori_coord+1,verti_coord-1) in pawn_coord):
+#             count+=1
+#     return count
+    
+# if __name__ == '__main__':
+#     #These "asserts" using only for self-checking and not necessary for auto-testing
+#     assert safe_pawns({"b4", "d4", "f4", "c3", "e3", "g5", "d2"}) == 6
+#     assert safe_pawns({"b4", "c4", "d4", "e4", "f4", "g4", "e5"}) == 1
+#     print("Coding complete? Click 'Check' to review your tests and earn cool rewards!")
+
+#Long Repeat
+def long_repeat(line):
+    """
+    At first, I was stuck in split the string by same letter and got lost.
+    Then I realize I only need to count the number, if same letter stops,
+    I only need to restart the count from beginning
+    """
+    if line == "":
+        return 0
+    else:
+        counter = 1
+        result = 1
+        for i in range(1,len(line)):
+            if line[i] == line[i-1]:
+                counter += 1
+                if counter > result:
+                    result = counter
+            else:
+                counter = 1  # if the sequece of same letter stops, then restart the counter
+        return result
+
+
+# Most Creative solution
+from itertools import groupby
+def long_repeat_best(line):
+    """
+    class groupby(object):
+    Make an iterator that returns consecutive keys and groups from the iterable.
+    [k for k, g in groupby('AAAABBBCCDAABBB')] --> A B C D A B
+    [list(g) for k, g in groupby('AAAABBBCCD')] --> AAAA BBB CC D
+    """
+    return max((sum(1 for _ in g) for k, g in groupby(line)), default=0)
+            
+
+if __name__ == '__main__':
+    #These "asserts" using only for self-checking and not necessary for auto-testing
+    assert long_repeat('sdsffffse') == 4, "First"
+    assert long_repeat('ddvvrwwwrggg') == 3, "Second"
+    assert long_repeat('abababaab') == 2, "Third"
+    assert long_repeat('') == 0, "Empty"
+    print('"Run" is good. How is "Check"?')
+
+
+
+
 
 
