@@ -125,47 +125,138 @@
 #     assert safe_pawns({"b4", "c4", "d4", "e4", "f4", "g4", "e5"}) == 1
 #     print("Coding complete? Click 'Check' to review your tests and earn cool rewards!")
 
-#Long Repeat
-def long_repeat(line):
-    """
-    At first, I was stuck in split the string by same letter and got lost.
-    Then I realize I only need to count the number, if same letter stops,
-    I only need to restart the count from beginning
-    """
-    if line == "":
-        return 0
-    else:
-        counter = 1
-        result = 1
-        for i in range(1,len(line)):
-            if line[i] == line[i-1]:
-                counter += 1
-                if counter > result:
-                    result = counter
-            else:
-                counter = 1  # if the sequece of same letter stops, then restart the counter
-        return result
+# #Long Repeat
+# def long_repeat(line):
+#     """
+#     At first, I was stuck in split the string by same letter and got lost.
+#     Then I realize I only need to count the number, if same letter stops,
+#     I only need to restart the count from beginning
+#     """
+#     if line == "":
+#         return 0
+#     else:
+#         counter = 1
+#         result = 1
+#         for i in range(1,len(line)):
+#             if line[i] == line[i-1]:
+#                 counter += 1
+#                 if counter > result:
+#                     result = counter
+#             else:
+#                 counter = 1  # if the sequece of same letter stops, then restart the counter
+#         return result
 
 
-# Most Creative solution
-from itertools import groupby
-def long_repeat_best(line):
-    """
-    class groupby(object):
-    Make an iterator that returns consecutive keys and groups from the iterable.
-    [k for k, g in groupby('AAAABBBCCDAABBB')] --> A B C D A B
-    [list(g) for k, g in groupby('AAAABBBCCD')] --> AAAA BBB CC D
-    """
-    return max((sum(1 for _ in g) for k, g in groupby(line)), default=0)
+# # Most Creative solution
+# from itertools import groupby
+# def long_repeat_best(line):
+#     """
+#     class groupby(object):
+#     Make an iterator that returns consecutive keys and groups from the iterable.
+#     [k for k, g in groupby('AAAABBBCCDAABBB')] --> A B C D A B
+#     [list(g) for k, g in groupby('AAAABBBCCD')] --> AAAA BBB CC D
+#     """
+#     return max((sum(1 for _ in g) for k, g in groupby(line)), default=0)
             
 
+# if __name__ == '__main__':
+#     #These "asserts" using only for self-checking and not necessary for auto-testing
+#     assert long_repeat('sdsffffse') == 4, "First"
+#     assert long_repeat('ddvvrwwwrggg') == 3, "Second"
+#     assert long_repeat('abababaab') == 2, "Third"
+#     assert long_repeat('') == 0, "Empty"
+#     print('"Run" is good. How is "Check"?')
+
+
+# # All the same 
+# from typing import List, Any
+
+# # My  first to mind solutions
+# def all_the_same(elements: List[Any]) -> bool:
+#     if len(elements) == 1 or not elements:
+#         return True
+#     else:
+#         my_list = []
+#         for i in range(0,len(elements)-1):
+#             if elements[i] == elements[i+1]:
+#                 my_list.append(1)
+#             else:
+#                 my_list.append(0)
+#         if 0 in my_list:
+#             return False
+#         return True
+
+# # a better solution
+
+# def all_the_same(elements: List[Any]) -> bool:
+#     if elements == []:
+#         return True
+#         """
+#         no need to create flags, take the first element, if it matches with the others return true else false
+#         """
+#     example = elements[0]
+#     for x in elements:
+#         if x != elements[0]:
+#             return False
+#     return True
+
+# # best solution
+
+# def all_the_same(elements):
+#     """
+#     very clever solution
+#     """
+#    return elements[1:] == elements[:-1]
+
+
+# if __name__ == '__main__':
+#     print("Example:")
+#     print(all_the_same([1, 1, 1]))
+    
+#     # These "asserts" are used for self-checking and not for an auto-testing
+#     assert all_the_same([1, 1, 1]) == True
+#     assert all_the_same([1, 2, 1]) == False
+#     assert all_the_same(['a', 'a', 'a']) == True
+#     assert all_the_same([]) == True
+#     assert all_the_same([1]) == True
+#     print("Coding complete? Click 'Check' to earn cool rewards!")
+
+
+# Caesar Cipher
+
+# My straight forward solutions
+def to_encrypt(text, delta):
+    result_text= ""
+    for x in text:
+        if x.isalpha():
+            x_num = ord(x)+delta
+            if x_num > 123:
+                new_letter = chr(x_num-26)
+                result_text += new_letter
+            elif x_num < 97:
+                new_letter = chr(123+(x_num-97))
+                result_text += new_letter
+            else:
+                result_text += chr(x_num)
+        else:
+            result_text += x
+    return result_text
+                
+
 if __name__ == '__main__':
+    print("Example:")
+    print(to_encrypt('abc', 10))
+
     #These "asserts" using only for self-checking and not necessary for auto-testing
-    assert long_repeat('sdsffffse') == 4, "First"
-    assert long_repeat('ddvvrwwwrggg') == 3, "Second"
-    assert long_repeat('abababaab') == 2, "Third"
-    assert long_repeat('') == 0, "Empty"
-    print('"Run" is good. How is "Check"?')
+    assert to_encrypt("a b c", 3) == "d e f"
+    assert to_encrypt("a b c", -3) == "x y z"
+    assert to_encrypt("simple text", 16) == "iycfbu junj"
+    assert to_encrypt("important text", 10) == "swzybdkxd dohd"
+    assert to_encrypt("state secret", -13) == "fgngr frperg"
+    print("Coding complete? Click 'Check' to earn cool rewards!")
+            
+    
+
 
 
 
