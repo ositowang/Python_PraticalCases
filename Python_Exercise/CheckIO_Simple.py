@@ -147,32 +147,64 @@
 #     assert checkio("2+3") == True, "No brackets, no problem"
 
 
-# Restricted Sums
-"""
-Our new calculator is censored and as such it does not accept certain words. You should try to trick by writing a program to calculate the sum of numbers.
+# # Restricted Sums
+# """
+# Our new calculator is censored and as such it does not accept certain words. You should try to trick by writing a program to calculate the sum of numbers.
 
-Given a list of numbers, you should find the sum of these numbers. Your solution should not contain any of the banned words, even as a part of another word.
+# Given a list of numbers, you should find the sum of these numbers. Your solution should not contain any of the banned words, even as a part of another word.
 
-The list of banned words are as follows:
+# The list of banned words are as follows:
 
-sum
-import
-for
-while
-reduce
-Input: A list of numbers.
+# sum
+# import
+# for
+# while
+# reduce
+# Input: A list of numbers.
 
-Output: The sum of numbers.
-"""
-# Using Recursion
-def checkio(data):
-    try:
-        return checkio(data[1:])+data[0]
-    except IndexError:
-        return 0 
+# Output: The sum of numbers.
+# """
+# # Using Recursion
+# def checkio(data):
+#     try:
+#         return checkio(data[1:])+data[0]
+#     except IndexError:
+#         return 0 
 
-# Not good solutions
+# # Not good solutions
 
-def checkio_eval(data):
-    d = map(str, data)
-    return eval('+'.join(d))
+# def checkio_eval(data):
+#     d = map(str, data)
+#     return eval('+'.join(d))
+
+# 经典的回文算法问题
+
+# 暴力破解法，我就会这个
+# def longest_palindromic(text):
+#     if not text:
+#         return ""
+
+#     n = len(text)
+#     longest, left, right = 0, 0, 0
+#     for i in range(0, n):
+#         for j in range(i + 1, n + 1):
+#             substr = text[i:j]
+#             if isPalindrome(substr) and len(substr) > longest:
+#                 longest = len(substr)
+#                 left, right = i, j
+#     # construct longest substr
+#     result = text[left:right]
+#     return result
+
+# def isPalindrome(text):
+#     if not text:
+#         return False
+#     # reverse compare
+#     return text == text[::-1]
+
+# if __name__ == '__main__':
+#     assert longest_palindromic("artrartrt") == "rtrartr", "The Longest"
+#     assert longest_palindromic("abacada") == "aba", "The First"
+#     assert longest_palindromic("aaaa") == "aaaa", "The A"
+
+
