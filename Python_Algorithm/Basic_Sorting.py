@@ -4,10 +4,11 @@
 def bubble_sort(list):
     for index in range(len(list)):
         for i in range(1, len(list) - index):
-            if list[i - 1] > list[i]:
+            if list[i - 1] < list[i]:
                 list[i - 1], list[i] = list[i], list[i - 1]
     return list
 
+print(bubble_sort([1,3,2,4,5]))
 
 # A better bubble sort
 

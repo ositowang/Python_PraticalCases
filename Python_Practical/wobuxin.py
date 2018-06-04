@@ -25,7 +25,7 @@ def twoSum(nums, target):
 
 # ## Use dict to increase the efficiency
 
-def twoSum(nums,target):
+def twoSum_better(nums,target):
     result = []
     dict = {}
     for i in range(0, len(nums)):

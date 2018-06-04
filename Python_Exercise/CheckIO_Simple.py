@@ -208,3 +208,69 @@
 #     assert longest_palindromic("aaaa") == "aaaa", "The A"
 
 
+
+# # Number Factory
+
+# """
+# You are given a two or more digits number N. For this mission, 
+# you should find the smallest positive number of X, such that the product of its digits is equal to N. 
+# If X does not exist, then return 0.
+# """
+# import functools
+
+# def checkio(number):
+#     """
+#     Return the smallest integer such that the product of its digits equal 'number'.
+#     If this is not possible, return zero.
+#     """
+#     # Special case for one to keep the logic simpler (and zero, as an early out).
+#     if number <= 1:
+#         return number
+
+#     # Factor number into factors in the range [2, 9] (inclusive)
+#     factors = []
+#     for d in reversed(range(2, 10)):
+#         while number > 1 and not number % d:
+#             print(number)
+#             number //= d
+#             print(number)
+#             factors.append(d)
+            
+#     # If the number has not been completely factored, it must have prime
+#     # factors larger than seven.  In this case, it's impossible to factor
+#     # with digits, so return zero.
+#     if number > 1:
+#         return 0
+    
+#     # Combine the factors back into a single integer.
+#     # Use reversed so that smaller digits come first.
+#     return functools.reduce(lambda a, b: 10 * a + b, reversed(factors))
+
+# Biggest Rectangle
+
+def largest_histogram(histogram):
+    area_list = []
+    for i in range(0,len(histogram)):  # Loop through the list
+        n = 0
+        height_list = [histogram[i]] 
+        while i+n<len(histogram):           
+            height_list.append(histogram[i+n])
+            area_list.append(min(height_list)*(1+n))
+            n +=1 
+    return max(area_list)
+
+
+# With the same logic but more pythonic
+def largest_histogram_better(histogram):
+    n = len(histogram)
+    return max((j - i) * min(histogram[i:j]) for i in range(n) for j in range(i+1, n+1))
+
+if __name__ == "__main__":
+    #These "asserts" using only for self-checking and not necessary for auto-testing
+    assert largest_histogram([5]) == 5, "one is always the biggest"
+    assert largest_histogram([5, 3]) == 6, "two are smallest X 2"
+    assert largest_histogram([1, 1, 4, 1]) == 4, "vertical"
+    assert largest_histogram([1, 1, 3, 1]) == 4, "horizontal"
+    assert largest_histogram([2, 1, 4, 5, 1, 3, 3]) == 8, "complex"
+    print("Done! Go check it!")
+

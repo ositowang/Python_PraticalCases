@@ -59,22 +59,66 @@
 
 # Dividing the rectangle
 
-def dividing_rectangle(a,b):
-    if a%b==0:
-        return a if a<b else b
-    return dividing_rectangle(a,a%b) if a > b else dividing_rectangle(b,b%a)
+# def dividing_rectangle(a,b):
+#     if a%b==0:
+#         return a if a<b else b
+#     return dividing_rectangle(a,a%b) if a > b else dividing_rectangle(b,b%a)
 
-print(dividing_rectangle(1680,640))
+# print(dividing_rectangle(1680,640))
 
-# Quick Sort
+# # Quick Sort
 
-def quick_sort(array):
-    if len(array)<2:
-        return array
-    else:
-        pivot = array[0]
-        less = [i for i in array[1:] if i <= pivot]
-        greater = [i for i in array[1:] if i >pivot]
-        return quick_sort(less)+[pivot]+quick_sort(greater)
+# def quick_sort(array):
+#     if len(array)<2:
+#         return array
+#     else:
+#         pivot = array[0]
+#         less = [i for i in array[1:] if i <= pivot]
+#         greater = [i for i in array[1:] if i >pivot]
+#         return quick_sort(less)+[pivot]+quick_sort(greater)
 
-print(quick_sort([10,5,2,3]))
+# print(quick_sort([10,5,2,3]))
+
+
+# Breadth-First Search
+
+# Pseudo Code
+from collections import deque
+search_deque = deque()
+search_deque += graph["you"]
+searched = []
+while search_deque:
+    person = search_deque.popleft()
+    if person not in searched:
+        if person_is_seller(person):
+            print(person)
+        else:
+            search_deque += graph[person]
+            searched.append(person)
+return False
+
+
+# 狄克斯特拉算法
+
+#example code 
+
+node = find_lowest_cost_node(costs)  # Find the node with lowest cost
+while node is not None:              # the loop stops after all the nodes are processed 
+    cost = cost[node]                
+    neighbors = graph[node]
+    for n in neighbors.keys():        #Check all the neighbors of the current node
+        new_cost = cost + neighbors[n]  
+        if cost[n] > new_cost:         # if the cost is lowers by driving through the current nodes to the neighbors 
+            costs[n] = new_cost        # Update the cost of the neighbors 
+            parents[n] = node          # Set the current neighbor's parent node as the current node
+    processed.append(node)             # Push the current node into processed 
+    node = find_lowest_cost_node(costs) # loop through all the nodes 
+def find_lowest_cost_node(costs):
+    lowest_cost = float("inf")
+    lowest_cost_node = None
+    for node in costs:
+        cost = costs[node]
+        if cost < lowest_cost and node not in processed: # if the node with lower cost and not been processed before
+            lowest_cost = cost
+            lowest_cost_node = node
+    return lowest_cost_node
